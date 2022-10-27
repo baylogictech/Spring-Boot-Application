@@ -1,4 +1,4 @@
-package com.baylogic.pojos;
+package com.baylogic.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,15 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name="roles")
+@Table(name="user_roles")
 @Entity
-public class Roles implements java.io.Serializable{
+public class UserRoles implements java.io.Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long roleId;
-	private String roleName;
+	private String roleDescription;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,17 @@ public class Roles implements java.io.Serializable{
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-	public String getRoleName() {
-		return roleName;
+	public String getRoleDescription() {
+		return roleDescription;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+	
+	
 }
