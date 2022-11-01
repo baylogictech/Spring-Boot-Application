@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
+import java.security.SecureRandom;
 import java.security.Security;
 import java.util.List;
 import java.util.Set;
@@ -43,8 +44,10 @@ public class LoginController {
 
     @PostMapping("register") 
     public void register(@RequestBody UserLoginData userLoginData) {
-    	try {		
-			String passwordHash = getSHA3_512(userLoginData.getPassword());
+    	try {	     
+    		byte[] salt = getSalt();
+			String passwordHash = getSHA3_512(userLoginData.getPassword(), salt);
+			userLoginData.setPasswordSalt(salt.toString());
 			userLoginData.setPasswordHash(passwordHash);
 			userLoginData.setHashAlgorithmId((long) 1);
 			userLoginData.setEmailValidationStatusId((long) 1);
@@ -55,12 +58,23 @@ public class LoginController {
 		}    	
     }
     
-    private String getSHA3_512(String password) throws NoSuchAlgorithmException {
+    private String getSHA3_512(String password, byte[] salt) throws NoSuchAlgorithmException {
+        String generatedPassword = null;
         MessageDigest crypt = MessageDigest.getInstance("SHA3-512");
-        crypt.update(password.getBytes(StandardCharsets.UTF_8));
-        byte[] bytes = crypt.digest();
-        BigInteger bi = new BigInteger(1, bytes);
-        String passwordHash = String.format("%0" + (bytes.length << 1) + "x", bi);
-        return passwordHash;
+        crypt.update(salt);
+        byte[] bytes = crypt.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        generatedPassword = sb.toString();
+        return generatedPassword;
+    }
+    
+    private static byte[] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return salt;
     }
 }

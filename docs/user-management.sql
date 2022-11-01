@@ -115,7 +115,7 @@ CREATE TABLE public.user_login_data (
     user_id SERIAL,
     login_name character varying(50) NOT NULL,
     password_hash character varying(250) NOT NULL,
-    password_salt character varying(100) NULL,
+    password_salt character varying(100) NOT NULL,
     hash_algorithm_id integer NOT NULL,
     email_address character varying(100) NOT NULL,
     confirmation_token character varying(100),
