@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name="user_login_data")
 @Entity
@@ -26,6 +27,8 @@ public class UserLoginData implements java.io.Serializable{
 	private Long emailValidationStatusId;
 	private String passwordRecoveryToken;
 	private Time recoveryTokenTime;
+	@Transient
+	private String password;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getUserId() {
@@ -96,6 +99,13 @@ public class UserLoginData implements java.io.Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	@Transient
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

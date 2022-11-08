@@ -1,33 +1,37 @@
 package com.baylogic.controller;
 
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baylogic.model.UserAccount;
-import com.baylogic.model.UserRoles;
-import com.baylogic.repositories.UserRolesRepository;
-
 @RestController
+@CrossOrigin
 public class LoginController {
-	@Autowired
-	private UserRolesRepository rolesRepository;
-	
-	@PostMapping({"/user/login","/*/user/login"})
-	public String login(@RequestBody UserAccount user) {
-		return "Hellow World!!" ;
-	}
-	       
-    @GetMapping("/roles")
-    public List<UserRoles> listAll(Model model) {
-        List<UserRoles> roles = rolesRepository.findAll();
-        model.addAttribute("roles", roles); 
-        return roles;
-    }
 
+
+	private String getSHA3_512(String password, byte[] salt) throws NoSuchAlgorithmException {
+        String generatedPassword = null;
+        MessageDigest crypt = MessageDigest.getInstance("SHA3-512");
+        crypt.update(salt);
+        byte[] bytes = crypt.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        generatedPassword = sb.toString();
+        return generatedPassword;
+    }
+    
+    private static byte[] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return salt;
+    }
 }

@@ -13,17 +13,24 @@ public class UserAccount implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long userId;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String middleName;
 	private String gender;
+	private Long userId;
 	private Long roleId;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getUserId() {
 		return userId;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
