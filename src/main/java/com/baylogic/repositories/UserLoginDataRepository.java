@@ -6,4 +6,5 @@ import com.baylogic.model.UserLoginData;
 
 public interface UserLoginDataRepository extends JpaRepository<UserLoginData, Integer> {
 	UserLoginData findByEmailAddress(String emailAddress);
+	UserLoginData findByPasswordRecoveryToken(String passwordRecoveryToken);
 }

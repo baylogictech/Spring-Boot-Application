@@ -17,7 +17,7 @@ public class UserLoginData implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long userId;
-	private String loginName;
+	private String fullName;
 	private String passwordHash;
 	private String passwordSalt;
 	private Long hashAlgorithmId;
@@ -27,6 +27,18 @@ public class UserLoginData implements java.io.Serializable{
 	private Long emailValidationStatusId;
 	private String passwordRecoveryToken;
 	private Time recoveryTokenTime;
+	private Long mobileNumber;
+	private Long mobileValidationStatusId;
+	
+	@Transient 
+	private String role;
+	@Transient
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	@Transient
 	private String password;
 	@Id
@@ -37,11 +49,12 @@ public class UserLoginData implements java.io.Serializable{
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	public String getLoginName() {
-		return loginName;
+	
+	public String getFullName() {
+		return fullName;
 	}
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	public String getPasswordHash() {
 		return passwordHash;
@@ -106,6 +119,18 @@ public class UserLoginData implements java.io.Serializable{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Long getMobileNumber() {
+		return mobileNumber;
+	}
+	public void setMobileNumber(Long mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+	public Long getMobileValidationStatusId() {
+		return mobileValidationStatusId;
+	}
+	public void setMobileValidationStatusId(Long mobileValidationStatusId) {
+		this.mobileValidationStatusId = mobileValidationStatusId;
 	}
 
 }
