@@ -1,6 +1,7 @@
 package com.baylogic.service;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -62,11 +63,15 @@ public class LoginServiceImpl implements LoginService {
 	    }
 	    try {
 		    Date tokenDate = new Date(); 
-	        Time tokenGenerationTime = new Time(tokenDate.getTime());  
+	        Timestamp tokenGenerationTime = new Timestamp(tokenDate.getTime());  
+	        Timestamp recoveryTokenTime = tokenGenerationTime;
+	        final Long duration = (long) (((60 * 60) + 59) * 1000);
+	        recoveryTokenTime.setTime(recoveryTokenTime.getTime() + duration);
 		    String token = UUID.randomUUID().toString();
 		    user.setPasswordRecoveryToken(token);
 		    user.setTokenGenerationTime(tokenGenerationTime);
 		    user.setEmailValidationStatusId((long) 1);	    
+		    user.setRecoveryTokenTime(recoveryTokenTime);
 		    userLoginDataRepo.save(user);
 		    EmailDetails emailDetails = new EmailDetails();
 		    emailDetails.setRecipient(emailId);
@@ -101,9 +106,10 @@ public class LoginServiceImpl implements LoginService {
 	}
 	@Override
 	public boolean changePassword(UserLoginData userData) {
-		userData.setPasswordHash(passwordEncoder.encode(userData.getPassword()));
+		UserLoginData user = userLoginDataRepo.findByEmailAddress(userData.getEmailAddress());
+		user.setPasswordHash(passwordEncoder.encode(userData.getPassword()));
 		boolean flag = false;
-		userLoginDataRepo.save(userData);
+		userLoginDataRepo.save(user);
 		flag = true;
 		return flag;
 	}
