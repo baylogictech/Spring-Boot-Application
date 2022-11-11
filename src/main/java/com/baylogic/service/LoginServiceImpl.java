@@ -77,12 +77,13 @@ public class LoginServiceImpl implements LoginService {
 		    emailDetails.setRecipient(emailId);
 		    String subject = "Here's the verification code to reset your password";
 	        
-	        String content = "<p>Hello,</p>"
-	                + "<p>You have requested to reset your password.</p>"
-	                + "<p>Verification code to change your password:"+token+"</p>"
-	                + "<br>"
-	                + "<p>Ignore this email if you do remember your password, "
-	                + "or you have not made the request.</p>";
+	        String content = "Hello,  \n"
+	                + "You have requested to reset your password. \n"
+	                + "Verification code to change your password: "+token+" \n"
+	                + "Ignore this email if you do remember your password, \n"
+	                + "or you have not made the request. \n \n"
+	                + "Thanks & Regards, \n"
+	                + "";
 		    emailDetails.setSubject(subject);
 		    emailDetails.setMsgBody(content);
 		    String status = emailService.sendSimpleMail(emailDetails);

@@ -16,6 +16,7 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender javaMailSender;
     
     @Value("${spring.mail.username}") private String sender;
+    @Value("${spring.mail.signature}") private String signature;
  
     // Method 1
     // To send a simple email
@@ -32,9 +33,9 @@ public class EmailServiceImpl implements EmailService {
             // Setting up necessary details
             mailMessage.setFrom(sender);
             mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
- 
+            details.setMsgBody(details.getMsgBody() + signature);
+            mailMessage.setText(details.getMsgBody());
             // Sending the mail
             javaMailSender.send(mailMessage);
             return "Mail Sent Successfully...";
