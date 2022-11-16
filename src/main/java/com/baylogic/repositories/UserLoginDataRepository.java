@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.baylogic.model.UserLoginData;
 
 public interface UserLoginDataRepository extends JpaRepository<UserLoginData, Integer> {
-	UserLoginData findByEmailAddress(String emailAddress);
+	UserLoginData findByUsername(String userName);
 	UserLoginData findByPasswordRecoveryToken(String passwordRecoveryToken);
 }

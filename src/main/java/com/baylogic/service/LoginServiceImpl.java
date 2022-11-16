@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
 	public boolean register(UserLoginData userLoginData) {
 		boolean flag = false;
 		try { 
-			userLoginData.setPasswordHash(passwordEncoder.encode(userLoginData.getPassword()));
+			userLoginData.setPassword(passwordEncoder.encode(userLoginData.getPassword()));
 			userLoginDataRepo.save(userLoginData);
 			Roles role = rolesRepository.findByRoleDescription(userLoginData.getRole());
 			UserRoles userRole = new UserRoles();
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
 	@Transactional
 	public boolean resetPassword(String emailId) {
 		boolean flag = false;
-		UserLoginData user = userLoginDataRepo.findByEmailAddress(emailId);
+		UserLoginData user = userLoginDataRepo.findByUsername(emailId);
 	    if (user == null) {
 	        throw new UsernameNotFoundException("Username not found");
 	    }
@@ -107,8 +107,8 @@ public class LoginServiceImpl implements LoginService {
 	}
 	@Override
 	public boolean changePassword(UserLoginData userData) {
-		UserLoginData user = userLoginDataRepo.findByEmailAddress(userData.getEmailAddress());
-		user.setPasswordHash(passwordEncoder.encode(userData.getPassword()));
+		UserLoginData user = userLoginDataRepo.findByUsername(userData.getUsername());
+		user.setPassword(passwordEncoder.encode(userData.getPassword()));
 		boolean flag = false;
 		userLoginDataRepo.save(user);
 		flag = true;

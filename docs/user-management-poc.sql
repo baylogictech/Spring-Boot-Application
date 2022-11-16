@@ -289,10 +289,11 @@ ALTER SEQUENCE public.user_account_detail_id_seq OWNED BY public.user_account_de
 CREATE TABLE public.user_login_data (
     user_id integer NOT NULL,
     full_name character varying(1000) NOT Null,
-    password_hash character varying(250) NOT NULL,
+    password_hash character varying(250) NULL,
+    password character varying(250) NOT NULL,
     password_salt character varying(100) NULL,
     hash_algorithm_id smallint NULL,
-    email_address character varying(100) NOT NULL,
+    username character varying(100) NOT NULL,
     confirmation_token character varying(100),
     token_generation_time timestamp without time zone,
     email_validation_status_id smallint NULL,
