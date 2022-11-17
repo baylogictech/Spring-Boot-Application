@@ -1,6 +1,5 @@
 package com.baylogic.model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -22,7 +21,7 @@ public class UserLoginData implements java.io.Serializable{
 	private String passwordHash;
 	private String passwordSalt;
 	private Long hashAlgorithmId;
-	private String emailAddress;
+	private String username;
 	private String confirmationToken;
 	private Timestamp tokenGenerationTime;
 	private Long emailValidationStatusId;
@@ -30,6 +29,7 @@ public class UserLoginData implements java.io.Serializable{
 	private Timestamp recoveryTokenTime;
 	private Long mobileNumber;
 	private Long mobileValidationStatusId;
+	private String password;
 	
 	@Transient 
 	private String role;
@@ -40,8 +40,6 @@ public class UserLoginData implements java.io.Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
-	@Transient
-	private String password;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getUserId() {
@@ -75,11 +73,11 @@ public class UserLoginData implements java.io.Serializable{
 	public void setHashAlgorithmId(Long hashAlgorithmId) {
 		this.hashAlgorithmId = hashAlgorithmId;
 	}
-	public String getEmailAddress() {
-		return emailAddress;
+	public String getUsername() {
+		return username;
 	}
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getConfirmationToken() {
 		return confirmationToken;
@@ -114,7 +112,6 @@ public class UserLoginData implements java.io.Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	@Transient
 	public String getPassword() {
 		return password;
 	}
@@ -133,5 +130,14 @@ public class UserLoginData implements java.io.Serializable{
 	public void setMobileValidationStatusId(Long mobileValidationStatusId) {
 		this.mobileValidationStatusId = mobileValidationStatusId;
 	}
-
+	
+	 @Override
+	    public String toString() {
+	        return "SecurityUser{" +
+	                "id=" + userId +
+	                ", username='" + username + '\'' +
+	                ", password='" + password + '\'' +
+	                ", roles='" + role + '\'' +
+	                '}';
+	    }
 }
