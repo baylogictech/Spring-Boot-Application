@@ -18,6 +18,10 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 
 import com.baylogic.service.JpaUserDetailsService;
 import com.nimbusds.jose.JOSEException;
@@ -65,6 +69,18 @@ public class WebSecurityConfig {
 	    authProvider.setUserDetailsService(userDetailsService);
 	    authProvider.setPasswordEncoder(passwordEncoder());
 	    return new ProviderManager(authProvider);
+	}
+	
+	@Bean 
+	CorsConfigurationSource corsConfigurationSource() { 
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("http://localhost:4200");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 
+		source.registerCorsConfiguration("/**", config);
+		return source; 
 	}
 
 	
