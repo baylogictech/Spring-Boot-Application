@@ -15,6 +15,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.baylogic.model.UserLoginData;
+import com.baylogic.repositories.UserLoginDataRepository;
 import com.baylogic.service.JpaUserDetailsService;
 import com.baylogic.service.TokenService;
 
@@ -29,12 +30,13 @@ public class AuthController {
 	private TokenService tokenService;
 	@Autowired
 	private JpaUserDetailsService jpaUserDetailsService;
-
+	
     @PostMapping("/loginUser")
     public View token(@RequestBody UserLoginData userLogin, Model model) throws AuthenticationException {
         final UserDetails userDetails = jpaUserDetailsService.loadUserByUsername(userLogin.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
         String token = tokenService.generateToken(authentication);
+        model.addAttribute("userDetails", userDetails);
         model.addAttribute("jwtToken", token);
         return new MappingJackson2JsonView();
 

@@ -14,18 +14,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.baylogic.model.UserLoginData;
+import com.baylogic.model.UserRoles;
+import com.baylogic.repositories.RolesRepository;
 import com.baylogic.repositories.UserLoginDataRepository;
+import com.baylogic.repositories.UserRolesRepository;
 
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-    private UserLoginDataRepository userRepository;	
+    private UserLoginDataRepository userRepo;	
+	@Autowired
+	private UserRolesRepository userRolesRepo;
+	@Autowired
+	private RolesRepository rolesRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserLoginData userLoginData = userRepository.findByUsername(username);
+        UserLoginData userLoginData = userRepo.findByUsername(username);
         if(userLoginData!= null) {
+        	List<UserRoles> userRoles = userRolesRepo.findByUserId(userLoginData.getUserId());
+        	 Collection<? extends GrantedAuthority> authList = getAuthorities(userRoles);
         	 return new User(
         			 userLoginData.getUsername(), 
         			 userLoginData.getPassword(), 
@@ -33,15 +42,17 @@ public class JpaUserDetailsService implements UserDetailsService {
 		                true, 
 		                true, 
 		                true,
-		                getAuthorities()
+		                authList
 		        );
         }      
         return null;
     }
     
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<? extends GrantedAuthority> getAuthorities(List<UserRoles> roles) {
 		 List<GrantedAuthority> authList =  new ArrayList<GrantedAuthority>();
-		 authList.add(new SimpleGrantedAuthority("doctor"));
+		 for(UserRoles role: roles) {
+			 authList.add(new SimpleGrantedAuthority(rolesRepo.findByRoleId(role.getRoleId()).getRoleDescription()));
+		 }
 		 return authList;
 	}
 	

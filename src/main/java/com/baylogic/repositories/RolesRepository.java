@@ -6,4 +6,5 @@ import com.baylogic.model.Roles;
 
 public interface RolesRepository extends JpaRepository<Roles, Integer> {
 	Roles findByRoleDescription(String roleDescription);
+	Roles findByRoleId(Long roleId);
 }
