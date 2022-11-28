@@ -1,6 +1,5 @@
 package com.baylogic.service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baylogic.enums.Status;
 import com.baylogic.model.EmailDetails;
 import com.baylogic.model.Roles;
 import com.baylogic.model.UserLoginData;

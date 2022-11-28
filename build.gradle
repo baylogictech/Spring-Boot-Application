@@ -2,11 +2,15 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id 'war'
+	id 'eclipse'
 }
 
-group = 'com.example'
+group = 'com.baylogic'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+war.baseName = 'MedicalServices'
 
 repositories {
 	mavenCentral()

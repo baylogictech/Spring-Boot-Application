@@ -48,9 +48,7 @@ public class WebSecurityConfig {
 	
 	@Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		//http.csrf().disable();
         return http.csrf().disable()
-           // .csrf(AbstractHttpConfigurer::disable)
             .authorizeRequests()
             .antMatchers("/loginUser", "/register", "/resetPassword", "/validatePasswordResetToken", "/changePassword").permitAll()
             .anyRequest().authenticated()
@@ -60,6 +58,7 @@ public class WebSecurityConfig {
             .httpBasic(withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+            .cors(cors -> cors.disable())
             .build();
     }
 	
