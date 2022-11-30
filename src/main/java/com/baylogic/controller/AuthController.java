@@ -34,8 +34,10 @@ public class AuthController {
     	try {
 	        final UserDetails userDetails = jpaUserDetailsService.loadUserByUsername(userLogin.getUsername());
 	        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
+	        UserLoginData userLoginData = jpaUserDetailsService.getUserLoginData(userLogin.getUsername());
+	        userLoginData.setUserRoles(userDetails.getAuthorities());
 	        String token = tokenService.generateToken(authentication);
-	        model.addAttribute("userDetails", userDetails);
+	        model.addAttribute("userDetails", userLoginData);
 	        model.addAttribute("jwtToken", token);
     	} catch (UsernameNotFoundException e) {
     		model.addAttribute("status", e.getMessage());

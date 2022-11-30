@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.baylogic.model.UserLoginData;
 import com.baylogic.model.UserRoles;
@@ -55,6 +56,11 @@ public class JpaUserDetailsService implements UserDetailsService {
 			 authList.add(new SimpleGrantedAuthority(rolesRepo.findByRoleId(role.getRoleId()).getRoleDescription()));
 		 }
 		 return authList;
+	}
+	
+	public UserLoginData getUserLoginData(String username) {
+		UserLoginData userLoginData = userRepo.findByUsername(username);
+		return userLoginData;
 	}
 	
 }
