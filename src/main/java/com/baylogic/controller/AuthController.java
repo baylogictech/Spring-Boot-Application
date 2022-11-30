@@ -20,7 +20,6 @@ import com.baylogic.service.TokenService;
 
 
 @RestController
-//@CrossOrigin
 public class AuthController {
 
 	@Autowired
