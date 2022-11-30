@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,9 +26,13 @@ public class LoginController {
 	private LoginService loginService;
 	
 	@PostMapping("/register")
-	public View register(@RequestBody UserLoginData user, Model model) {		
-		boolean flag = loginService.register(user);
-		model.addAttribute("status", flag);
+	public View register(@RequestBody UserLoginData user, Model model) {	
+		try {
+			boolean flag = loginService.register(user);
+			model.addAttribute("status", flag);
+		} catch (DataIntegrityViolationException e) {
+			model.addAttribute("status", e.getMessage());
+		}
 		return new MappingJackson2JsonView();
 	}
 	
