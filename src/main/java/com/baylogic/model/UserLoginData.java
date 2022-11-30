@@ -1,6 +1,8 @@
 package com.baylogic.model;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.security.core.GrantedAuthority;
 
 @Table(name="user_login_data")
 @Entity
@@ -30,6 +34,8 @@ public class UserLoginData implements java.io.Serializable{
 	private Long mobileNumber;
 	private Long mobileValidationStatusId;
 	private String password;
+	@Transient
+	private Collection<? extends GrantedAuthority> userRoles;
 	
 	@Transient 
 	private String role;
@@ -130,8 +136,14 @@ public class UserLoginData implements java.io.Serializable{
 	public void setMobileValidationStatusId(Long mobileValidationStatusId) {
 		this.mobileValidationStatusId = mobileValidationStatusId;
 	}
-	
-	 @Override
+	@Transient
+	public Collection<? extends GrantedAuthority> getUserRoles() {
+		return userRoles;
+	}
+	public void setUserRoles(Collection<? extends GrantedAuthority> userRoles) {
+		this.userRoles = userRoles;
+	}
+	@Override
 	    public String toString() {
 	        return "SecurityUser{" +
 	                "id=" + userId +
