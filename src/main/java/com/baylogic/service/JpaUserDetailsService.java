@@ -44,8 +44,9 @@ public class JpaUserDetailsService implements UserDetailsService {
 		                true,
 		                authList
 		        );
-        }      
-        return null;
+        } else {
+        	throw new UsernameNotFoundException("Email does not exist");
+        }
     }
     
 	public Collection<? extends GrantedAuthority> getAuthorities(List<UserRoles> roles) {

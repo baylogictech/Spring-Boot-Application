@@ -52,13 +52,13 @@ public class WebSecurityConfig {
             .authorizeRequests()
             .antMatchers("/loginUser", "/register", "/resetPassword", "/validatePasswordResetToken", "/changePassword").permitAll()
             .anyRequest().authenticated()
-            .and()            
+            .and()   
+            .cors().and()
             .userDetailsService(myUserDetailsService)
             .headers(headers -> headers.frameOptions().sameOrigin())
             .httpBasic(withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-            .cors(cors -> cors.disable())
             .build();
     }
 	

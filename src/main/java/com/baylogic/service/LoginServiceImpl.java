@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	@Transactional
-	public boolean register(UserLoginData userLoginData) {
+	public boolean register(UserLoginData userLoginData) throws DataIntegrityViolationException {
 		boolean flag = false;
 		try { 
 			userLoginData.setPassword(passwordEncoder.encode(userLoginData.getPassword()));
@@ -45,9 +46,9 @@ public class LoginServiceImpl implements LoginService {
 			userRole.setRoleId(role.getRoleId());
 			userRolesRepository.save(userRole);
 			flag = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Username already exists");
+		} 
 		return flag;
 	}
 	

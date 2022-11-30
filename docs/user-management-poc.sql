@@ -887,6 +887,10 @@ ALTER TABLE ONLY public.user_roles
 
 -- Completed on 2022-11-03 12:03:32 IST
 
+    ALTER TABLE public.user_login_data
+ADD CONSTRAINT username_unique UNIQUE (username);
+
+
 --
 -- PostgreSQL database dump complete
 --
