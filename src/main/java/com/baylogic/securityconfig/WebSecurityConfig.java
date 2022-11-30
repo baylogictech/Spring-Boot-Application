@@ -2,6 +2,8 @@ package com.baylogic.securityconfig;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -74,7 +76,7 @@ public class WebSecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() { 
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:4200");
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://192.168.43.68:8100"));
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 
