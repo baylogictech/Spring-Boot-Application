@@ -13,6 +13,7 @@ public class Diagnosis {
 	private Integer diagnosisId;
 	private String diagnosisDescription;
 	private Integer specializationId;
+	private String diagnosisImgUrl;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,12 @@ public class Diagnosis {
 	}
 	public void setSpecializationId(Integer specializationId) {
 		this.specializationId = specializationId;
+	}
+	public String getDiagnosisImgUrl() {
+		return diagnosisImgUrl;
+	}
+	public void setDiagnosisImgUrl(String diagnosisImgUrl) {
+		this.diagnosisImgUrl = diagnosisImgUrl;
 	}
 	
 }

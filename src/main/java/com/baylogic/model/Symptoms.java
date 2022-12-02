@@ -19,6 +19,7 @@ public class Symptoms implements Serializable{
 	private Integer symptomsId;
 	private String symptomDescription;
 	private Integer specializationId;
+	private String symptomImgUrl;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +41,10 @@ public class Symptoms implements Serializable{
 	public void setSpecializationId(Integer specializationId) {
 		this.specializationId = specializationId;
 	}
-	
-	
+	public String getSymptomImgUrl() {
+		return symptomImgUrl;
+	}
+	public void setSymptomImgUrl(String symptomImgUrl) {
+		this.symptomImgUrl = symptomImgUrl;
+	}
 }
