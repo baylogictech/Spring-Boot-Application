@@ -14,6 +14,7 @@ public class Specialization implements Serializable{
 
 	private Integer specializationId;
 	private String specializationName;
+	private String specializationImgUrl;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,12 @@ public class Specialization implements Serializable{
 	}
 	public void setSpecializationName(String specializationName) {
 		this.specializationName = specializationName;
+	}
+	public String getSpecializationImgUrl() {
+		return specializationImgUrl;
+	}
+	public void setSpecializationImgUrl(String specializationImgUrl) {
+		this.specializationImgUrl = specializationImgUrl;
 	}
 	
 }
