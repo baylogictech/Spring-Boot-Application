@@ -19,21 +19,21 @@ public class ProvidersController {
 	@Autowired
 	private ProvidersService providersService;
 
-	@GetMapping("/symptoms")
+	@GetMapping("/prov/symptoms")
 	public View getSymptoms(Model model) {
 		List<Symptoms> symptoms = providersService.getSymptoms();
 		model.addAttribute("symptoms", symptoms);
         return new MappingJackson2JsonView();
 	}
 	
-	@GetMapping("/specializations")
+	@GetMapping("/prov/specializations")
 	public View getSpecializations(Model model) {
 		List<Specialization> specializations = providersService.getSpecializations();
 		model.addAttribute("specializations", specializations);
         return new MappingJackson2JsonView();
 	}
 	
-	@GetMapping("/diagnosis")
+	@GetMapping("/prov/diagnosis")
 	public View getDiagnosis(Model model) {
 		List<Diagnosis> diagnosis = providersService.getDiagnosis();
 		model.addAttribute("diagnosis", diagnosis);

@@ -17,7 +17,7 @@ public class Symptoms implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer symptomsId;
-	private String symptomsDescription;
+	private String symptomDescription;
 	private Integer specializationId;
 	
 	@Id
@@ -28,11 +28,11 @@ public class Symptoms implements Serializable{
 	public void setSymptomsId(Integer symptomsId) {
 		this.symptomsId = symptomsId;
 	}
-	public String getSymptomsDescription() {
-		return symptomsDescription;
+	public String getSymptomDescription() {
+		return symptomDescription;
 	}
-	public void setSymptomsDescription(String symptomsDescription) {
-		this.symptomsDescription = symptomsDescription;
+	public void setSymptomDescription(String symptomDescription) {
+		this.symptomDescription = symptomDescription;
 	}
 	public Integer getSpecializationId() {
 		return specializationId;
