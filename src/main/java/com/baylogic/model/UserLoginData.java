@@ -35,7 +35,7 @@ public class UserLoginData implements java.io.Serializable{
 	private Long mobileValidationStatusId;
 	private String password;
 	@Transient
-	private Collection<? extends GrantedAuthority> userRoles;
+	private Collection<? extends GrantedAuthority> authorities;
 	
 	@Transient 
 	private String role;
@@ -136,20 +136,20 @@ public class UserLoginData implements java.io.Serializable{
 	public void setMobileValidationStatusId(Long mobileValidationStatusId) {
 		this.mobileValidationStatusId = mobileValidationStatusId;
 	}
-	@Transient
-	public Collection<? extends GrantedAuthority> getUserRoles() {
-		return userRoles;
-	}
-	public void setUserRoles(Collection<? extends GrantedAuthority> userRoles) {
-		this.userRoles = userRoles;
-	}
 	@Override
-	    public String toString() {
-	        return "SecurityUser{" +
-	                "id=" + userId +
-	                ", username='" + username + '\'' +
-	                ", password='" + password + '\'' +
-	                ", roles='" + role + '\'' +
-	                '}';
-	    }
+    public String toString() {
+        return "SecurityUser{" +
+                "id=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles='" + role + '\'' +
+                '}';
+    }
+	@Transient
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
 }
