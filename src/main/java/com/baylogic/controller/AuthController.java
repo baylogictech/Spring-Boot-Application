@@ -35,7 +35,7 @@ public class AuthController {
 	        final UserDetails userDetails = jpaUserDetailsService.loadUserByUsername(userLogin.getUsername());
 	        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
 	        UserLoginData userLoginData = jpaUserDetailsService.getUserLoginData(userLogin.getUsername());
-	        userLoginData.setUserRoles(userDetails.getAuthorities());
+	        userLoginData.setAuthorities(userDetails.getAuthorities());
 	        String token = tokenService.generateToken(authentication);
 	        model.addAttribute("userDetails", userLoginData);
 	        model.addAttribute("jwtToken", token);

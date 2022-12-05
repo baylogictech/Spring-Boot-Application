@@ -6,9 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name="user_account")
+@Table(name="user_account_detail")
 @Entity
-public class UserAccount implements java.io.Serializable{
+public class UserAccountDetail implements java.io.Serializable{
 	/**
 	 * 
 	 */
@@ -19,18 +19,19 @@ public class UserAccount implements java.io.Serializable{
 	private String middleName;
 	private String gender;
 	private Long userId;
-	private Long roleId;
+	private String state;
+	private String city;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getUserId() {
-		return userId;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public Long getUserId() {
+		return userId;
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
@@ -59,14 +60,20 @@ public class UserAccount implements java.io.Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Long getRoleId() {
-		return roleId;
-	}
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 }

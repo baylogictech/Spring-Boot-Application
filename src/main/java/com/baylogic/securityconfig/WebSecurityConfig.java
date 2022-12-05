@@ -52,7 +52,7 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/loginUser", "/register", "/resetPassword", "/validatePasswordResetToken", "/changePassword").permitAll()
+            .antMatchers("/loginUser", "/register", "/resetPassword", "/validatePasswordResetToken", "/changePassword", "/prov/*").permitAll()
             .anyRequest().authenticated()
             .and()   
             .cors().and()
