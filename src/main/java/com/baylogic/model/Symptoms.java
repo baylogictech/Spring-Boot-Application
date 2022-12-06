@@ -18,7 +18,6 @@ public class Symptoms implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer symptomsId;
 	private String symptomDescription;
-	private Integer specializationId;
 	private String symptomImgUrl;
 	
 	@Id
@@ -34,12 +33,6 @@ public class Symptoms implements Serializable{
 	}
 	public void setSymptomDescription(String symptomDescription) {
 		this.symptomDescription = symptomDescription;
-	}
-	public Integer getSpecializationId() {
-		return specializationId;
-	}
-	public void setSpecializationId(Integer specializationId) {
-		this.specializationId = specializationId;
 	}
 	public String getSymptomImgUrl() {
 		return symptomImgUrl;

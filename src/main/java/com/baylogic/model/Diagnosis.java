@@ -12,7 +12,6 @@ public class Diagnosis {
 	
 	private Integer diagnosisId;
 	private String diagnosisDescription;
-	private Integer specializationId;
 	private String diagnosisImgUrl;
 	
 	@Id
@@ -28,12 +27,6 @@ public class Diagnosis {
 	}
 	public void setDiagnosisDescription(String diagnosisDescription) {
 		this.diagnosisDescription = diagnosisDescription;
-	}
-	public Integer getSpecializationId() {
-		return specializationId;
-	}
-	public void setSpecializationId(Integer specializationId) {
-		this.specializationId = specializationId;
 	}
 	public String getDiagnosisImgUrl() {
 		return diagnosisImgUrl;

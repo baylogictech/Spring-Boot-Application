@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baylogic.model.Diagnosis;
+import com.baylogic.model.DocSpecializations;
 import com.baylogic.model.Specialization;
 import com.baylogic.model.Symptoms;
 import com.baylogic.repositories.DiagnosisRepository;
+import com.baylogic.repositories.DocSpecializationsRepository;
 import com.baylogic.repositories.SpecializationRepository;
 import com.baylogic.repositories.SymptomsRepository;
 
@@ -20,6 +22,8 @@ public class ProvidersServiceImpl implements ProvidersService {
 	private SpecializationRepository specializationRepo;
 	@Autowired
 	private DiagnosisRepository diagnosisRepo;
+	@Autowired
+	private DocSpecializationsRepository docSpecRepo;
 
 	@Override
 	public List<Symptoms> getSymptoms() {
@@ -39,4 +43,16 @@ public class ProvidersServiceImpl implements ProvidersService {
 		return diagnosisRepo.findAll();
 	}
 
+	@Override
+	public boolean saveDocSpecialization(DocSpecializations docSpecializations) {
+		try {
+			docSpecRepo.save(docSpecializations);
+		}catch (Exception e) {
+			return false;
+		}
+		return true;		
+	}
+
 }
+
+	

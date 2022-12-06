@@ -18,8 +18,14 @@ public class ProfileController {
 	private ProfileService profileService;
 	
 	@PostMapping("/saveDocProfile")
-	public View saveDocProfile(@RequestBody Doctors profile) {
+	public View saveDocProfile(@RequestBody Doctors profile, Model model) {
+		try {
 		profileService.saveDocProfile(profile);
+		} catch(Exception e) {
+			model.addAttribute("status", "Unable to update Profile.");
+			e.printStackTrace();
+		}
+		model.addAttribute("status", "Profile updated successfully.");
 		return new MappingJackson2JsonView();
 	}
 	

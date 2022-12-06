@@ -5,14 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.baylogic.model.Diagnosis;
+import com.baylogic.model.DocSpecializations;
 import com.baylogic.model.Specialization;
 import com.baylogic.model.Symptoms;
 import com.baylogic.service.ProvidersService;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @RestController
 public class ProvidersController {
@@ -39,4 +43,12 @@ public class ProvidersController {
 		model.addAttribute("diagnosis", diagnosis);
         return new MappingJackson2JsonView();
 	}
+	
+	@PostMapping("/saveDocSpecialization") 
+	public View saveDocSpecialization(@RequestBody DocSpecializations docSpecializations, Model model) {
+		boolean status = providersService.saveDocSpecialization(docSpecializations);
+		model.addAttribute("status", status);
+		return new MappingJackson2JsonView();
+	}
 }
+
