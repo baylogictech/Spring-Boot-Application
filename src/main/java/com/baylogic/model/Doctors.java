@@ -23,7 +23,14 @@ public class Doctors implements Serializable {
 	private String gender;
 	private String state;
 	private String city;
+	private String qualification;
 	
+	public String getQualification() {
+		return qualification;
+	}
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getDoctorId() {
