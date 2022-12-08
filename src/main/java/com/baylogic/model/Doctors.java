@@ -24,7 +24,21 @@ public class Doctors implements Serializable {
 	private String state;
 	private String city;
 	private String qualification;
+	private String languages;
+	private Integer consultation_fee;
 	
+	public String getLanguages() {
+		return languages;
+	}
+	public void setLanguages(String languages) {
+		this.languages = languages;
+	}
+	public Integer getConsultation_fee() {
+		return consultation_fee;
+	}
+	public void setConsultation_fee(Integer consultation_fee) {
+		this.consultation_fee = consultation_fee;
+	}
 	public String getQualification() {
 		return qualification;
 	}
