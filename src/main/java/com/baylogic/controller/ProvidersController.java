@@ -46,8 +46,12 @@ public class ProvidersController {
 	}
 	
 	@PostMapping("/saveDocSpecialization") 
-	public View saveDocSpecialization(@RequestBody DocSpecializations docSpecializations, Model model) {
-		boolean status = providersService.saveDocSpecialization(docSpecializations);
+	public View saveDocSpecialization(@RequestBody List<DocSpecializations> docSpecializationsList, Model model) {
+		boolean status = false;
+		for(DocSpecializations docSpecialization : docSpecializationsList )
+		{
+			status = providersService.saveDocSpecialization(docSpecialization);
+		}
 		model.addAttribute("status", status);
 		return new MappingJackson2JsonView();
 	}
