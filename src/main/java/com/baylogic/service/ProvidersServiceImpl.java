@@ -3,6 +3,7 @@ package com.baylogic.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.xml.DocumentDefaultsDefinition;
 import org.springframework.stereotype.Service;
 
 import com.baylogic.model.Diagnosis;
@@ -50,7 +51,13 @@ public class ProvidersServiceImpl implements ProvidersService {
 	@Override
 	public List<Doctors> getDoctors() {
 		// TODO Auto-generated method stub
-		return doctorsRepo.findAll();
+		//List<DocSpecializations> docSpecializations = docSpecRepo.findAll(); 
+		List<Doctors> doctorsList = doctorsRepo.findAll();		
+		/*for(Doctors doctor : doctorsList) {
+			DocSpecializations docSpecialization = docSpecRepo.findByUserId(doctor.getUserLoginId());
+			doctor.setSpecializationType(docSpecialization.getSpecializationType());
+		}*/
+		return doctorsList;
 	}
 
 	@Override
@@ -61,6 +68,11 @@ public class ProvidersServiceImpl implements ProvidersService {
 			return false;
 		}
 		return true;		
+	}
+
+	@Override
+	public List<Doctors> searchDoctors(String criteria, Integer[] searchItems) {
+		return doctorsRepo.getDoctorsBySearch(criteria, searchItems);
 	}
 
 }

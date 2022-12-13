@@ -76,7 +76,7 @@ public class WebSecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() { 
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://192.168.43.68:8100", "http://localhost:8100"));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://192.168.43.68:8100", "http://localhost:8100", "http://localhost/*"));
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 

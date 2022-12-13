@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -60,6 +61,13 @@ public class ProvidersController {
 	public View getDoctors(Model model) {
 		List<Doctors> doctors = providersService.getDoctors();
 		model.addAttribute("doctors", doctors);
+        return new MappingJackson2JsonView();
+	}
+	
+	@GetMapping("/prov/searchDoctors")
+	public View searchDoctors(@RequestParam String criteria, @RequestParam Integer[] searchItems, Model model) {
+		List<Doctors> doctorsList = providersService.searchDoctors(criteria, searchItems);
+		model.addAttribute("doctorsList", doctorsList);
         return new MappingJackson2JsonView();
 	}
 }

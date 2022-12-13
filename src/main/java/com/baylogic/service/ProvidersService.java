@@ -14,4 +14,5 @@ public interface ProvidersService {
 	public List<Diagnosis> getDiagnosis();
 	public boolean saveDocSpecialization(DocSpecializations docSpecializations);
 	public List<Doctors> getDoctors();
+	public List<Doctors> searchDoctors(String criteria, Integer[] searchItems);
 }

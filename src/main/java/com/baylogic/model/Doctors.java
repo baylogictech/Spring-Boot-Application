@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name="doctors")
 @Entity
@@ -18,7 +19,7 @@ public class Doctors implements Serializable {
 	private String lastName;
 	private String professionalStatement;
 	private Date practicingFrom;
-	private Long userLoginId;
+	private Integer userLoginId;
 	private Integer age;
 	private String gender;
 	private String state;
@@ -26,6 +27,8 @@ public class Doctors implements Serializable {
 	private String qualification;
 	private String languages;
 	private Integer consultation_fee;
+	@Transient
+	private String specializationType;
 	
 	public String getLanguages() {
 		return languages;
@@ -77,10 +80,10 @@ public class Doctors implements Serializable {
 	public void setPracticingFrom(Date practicingFrom) {
 		this.practicingFrom = practicingFrom;
 	}
-	public Long getUserLoginId() {
+	public Integer getUserLoginId() {
 		return userLoginId;
 	}
-	public void setUserLoginId(Long userLoginId) {
+	public void setUserLoginId(Integer userLoginId) {
 		this.userLoginId = userLoginId;
 	}
 	public Integer getAge() {
@@ -106,6 +109,12 @@ public class Doctors implements Serializable {
 	}
 	public void setCity(String city) {
 		this.city = city;
+	}
+	public String getSpecializationType() {
+		return specializationType;
+	}
+	public void setSpecializationType(String specializationType) {
+		this.specializationType = specializationType;
 	}
 	
 	
