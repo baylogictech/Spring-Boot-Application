@@ -110,6 +110,7 @@ public class Doctors implements Serializable {
 	public void setCity(String city) {
 		this.city = city;
 	}
+	@Transient
 	public String getSpecializationType() {
 		return specializationType;
 	}
