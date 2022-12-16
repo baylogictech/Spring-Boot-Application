@@ -1,6 +1,7 @@
 package com.baylogic.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.baylogic.model.Diagnosis;
 import com.baylogic.model.DocSpecializations;
@@ -14,5 +15,7 @@ public interface ProvidersService {
 	public List<Diagnosis> getDiagnosis();
 	public boolean saveDocSpecialization(DocSpecializations docSpecializations);
 	public List<Doctors> getDoctors();
-	public List<Doctors> searchDoctors(String criteria, Integer[] searchItems);
+	public List<Doctors> searchDoctors(String criteria, List<Long> searchItems); 
+	public List<Doctors> getDoctors(String searchType, Long searchTypeId); 
+
 }

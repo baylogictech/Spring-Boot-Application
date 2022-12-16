@@ -1,6 +1,7 @@
 package com.baylogic.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -18,7 +19,6 @@ import com.baylogic.model.Doctors;
 import com.baylogic.model.Specialization;
 import com.baylogic.model.Symptoms;
 import com.baylogic.service.ProvidersService;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @RestController
 public class ProvidersController {
@@ -65,8 +65,15 @@ public class ProvidersController {
 	}
 	
 	@GetMapping("/prov/searchDoctors")
-	public View searchDoctors(@RequestParam String criteria, @RequestParam Integer[] searchItems, Model model) {
+	public View searchDoctors(@RequestParam String criteria, @RequestParam List<Long> searchItems, Model model) {
 		List<Doctors> doctorsList = providersService.searchDoctors(criteria, searchItems);
+		model.addAttribute("doctorsList", doctorsList);
+        return new MappingJackson2JsonView();
+	}
+	
+	@GetMapping("/prov/getDoctors")
+	public View searchDoctors(@RequestParam String searchType, @RequestParam Long searchTypeId, Model model) {
+		List<Doctors> doctorsList = providersService.getDoctors(searchType, searchTypeId);
 		model.addAttribute("doctorsList", doctorsList);
         return new MappingJackson2JsonView();
 	}

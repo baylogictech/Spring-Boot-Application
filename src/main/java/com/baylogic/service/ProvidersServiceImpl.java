@@ -1,11 +1,13 @@
 package com.baylogic.service;
 
+import java.sql.Types;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.xml.DocumentDefaultsDefinition;
 import org.springframework.stereotype.Service;
 
+import com.baylogic.db.PGArrayGeneric;
 import com.baylogic.model.Diagnosis;
 import com.baylogic.model.DocSpecializations;
 import com.baylogic.model.Doctors;
@@ -14,6 +16,7 @@ import com.baylogic.model.Symptoms;
 import com.baylogic.repositories.DiagnosisRepository;
 import com.baylogic.repositories.DocSpecializationsRepository;
 import com.baylogic.repositories.DoctorsRepository;
+import com.baylogic.repositories.JdbcDoctorsRepository;
 import com.baylogic.repositories.SpecializationRepository;
 import com.baylogic.repositories.SymptomsRepository;
 
@@ -29,6 +32,8 @@ public class ProvidersServiceImpl implements ProvidersService {
 	private DocSpecializationsRepository docSpecRepo;
 	@Autowired
 	private DoctorsRepository doctorsRepo;
+	@Autowired
+	private JdbcDoctorsRepository jdbcDoctorRepo;
 
 	@Override
 	public List<Symptoms> getSymptoms() {
@@ -71,8 +76,16 @@ public class ProvidersServiceImpl implements ProvidersService {
 	}
 
 	@Override
-	public List<Doctors> searchDoctors(String criteria, Integer[] searchItems) {
-		return doctorsRepo.getDoctorsBySearch(criteria, searchItems);
+	public List<Doctors> searchDoctors(String criteria, List<Long> searchItems) {
+		PGArrayGeneric st = new PGArrayGeneric();
+		st.setArray(Types.BIGINT, searchItems.toArray());
+		//List<Doctors> doctors = doctorsRepo.getDoctorsBySearch(criteria, st);
+		return jdbcDoctorRepo.getDoctorsBySearch(criteria, st);
+	}
+
+	@Override
+	public List<Doctors> getDoctors(String searchType, Long searchTypeId) {
+		return jdbcDoctorRepo.getDoctorsBySearch2(searchType, searchTypeId);
 	}
 
 }
