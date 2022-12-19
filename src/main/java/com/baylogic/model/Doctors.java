@@ -26,7 +26,8 @@ public class Doctors implements Serializable {
 	private String city;
 	private String qualification;
 	private String languages;
-	private Integer consultation_fee;
+	private Integer consultationFee;
+
 	@Transient
 	private String specializationType;
 	
@@ -36,11 +37,12 @@ public class Doctors implements Serializable {
 	public void setLanguages(String languages) {
 		this.languages = languages;
 	}
-	public Integer getConsultation_fee() {
-		return consultation_fee;
+	
+	public Integer getConsultationFee() {
+		return consultationFee;
 	}
-	public void setConsultation_fee(Integer consultation_fee) {
-		this.consultation_fee = consultation_fee;
+	public void setConsultationFee(Integer consultationFee) {
+		this.consultationFee = consultationFee;
 	}
 	public String getQualification() {
 		return qualification;
@@ -117,6 +119,6 @@ public class Doctors implements Serializable {
 	public void setSpecializationType(String specializationType) {
 		this.specializationType = specializationType;
 	}
-	
+
 	
 }

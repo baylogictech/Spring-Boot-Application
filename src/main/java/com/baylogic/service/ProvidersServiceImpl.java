@@ -76,16 +76,21 @@ public class ProvidersServiceImpl implements ProvidersService {
 	}
 
 	@Override
-	public List<Doctors> searchDoctors(String criteria, List<Long> searchItems) {
+	public List<Doctors> searchDoctors(String searchType, List<Long> searchTypeIds) {
 		PGArrayGeneric st = new PGArrayGeneric();
-		st.setArray(Types.BIGINT, searchItems.toArray());
-		//List<Doctors> doctors = doctorsRepo.getDoctorsBySearch(criteria, st);
-		return jdbcDoctorRepo.getDoctorsBySearch(criteria, st);
+		st.setArray(Types.BIGINT, searchTypeIds.toArray());
+		return jdbcDoctorRepo.getDoctorsBySearch(searchType, st);
 	}
 
 	@Override
 	public List<Doctors> getDoctors(String searchType, Long searchTypeId) {
 		return jdbcDoctorRepo.getDoctorsBySearch2(searchType, searchTypeId);
+	}
+
+	@Override
+	public List<Doctors> searchDoctors(String searchType, Integer searchTypeId) {
+		// TODO Auto-generated method stub
+		return jdbcDoctorRepo.getDoctorsBySearch(searchType, searchTypeId);
 	}
 
 }
