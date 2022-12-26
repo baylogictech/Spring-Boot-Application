@@ -1,48 +1,41 @@
-package com.baylogic.repositories;
+package com.baylogic.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.print.Doc;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import com.baylogic.db.PGArrayGeneric;
+import com.baylogic.mapper.DocSpecializationsMapper;
 import com.baylogic.mapper.DoctorsMapper;
+import com.baylogic.model.DocSpecializations;
 import com.baylogic.model.Doctors;
+import com.baylogic.util.WebKeys;
 
 @Repository
-public class JdbcDoctorsRepository {
+public class CommonDAOImpl implements CommonDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	@Override
 	public List<Doctors> getDoctorsBySearch(String searchType,  PGArrayGeneric searchTypeIds) {
 		List<Doctors> doctors = null;		
-		doctors = jdbcTemplate.query("SELECT * from doc_list_by_search2(?,?)", new DoctorsMapper(), new Object[] {searchType, searchTypeIds}); 
+		doctors = jdbcTemplate.query("SELECT * from doc_list_by_search(?,?)", new DoctorsMapper(), new Object[] {searchType, searchTypeIds}); 
 		return doctors;
 	}
 	
+	@Override
 	public List<Doctors> getDoctorsBySearch(String searchType,  Integer searchTypeId) {
 		List<Doctors> doctors = null;		
-		doctors = jdbcTemplate.query("SELECT * from doc_list_by_search2(?,?)", new DoctorsMapper(), new Object[] {searchType, searchTypeId});  //"+searchType+","+searchTypeId+"
+		doctors = jdbcTemplate.query("SELECT * from doc_list_by_search2(?,?)", new DoctorsMapper(), searchType, searchTypeId);  //"+searchType+","+searchTypeId+"
+		doctors.forEach(doctor -> System.out.println("doctor id"+doctor.getDoctorId()));
 		return doctors;
 	}
 	
+	@Override
 	public List<Doctors> getDoctorsBySearch2(String searchType,  Long searchTypeId) {
 	    List<Doctors> doctors = new ArrayList<Doctors>();		
 	    doctors = this.jdbcTemplate.query(
@@ -55,4 +48,13 @@ public class JdbcDoctorsRepository {
 	    return doctors;
 	}
 
+	@Override
+	public List<DocSpecializations> getDoctorSpecializations(Integer userLoginId) {
+		List<DocSpecializations> docSpecializations = null;
+		docSpecializations = this.jdbcTemplate.query("select * from doc_specializations where userId=? and specialization_type=?" , new DocSpecializationsMapper(), userLoginId, WebKeys.SPECIALIZATION_TYPE );
+		return docSpecializations;
+	}
+		
+	
+	
 }

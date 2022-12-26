@@ -4,8 +4,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.Arrays;
 
+import javax.activation.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -76,7 +79,7 @@ public class WebSecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() { 
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://192.168.43.68:8100", "http://localhost:8100", "http://localhost/*"));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://192.168.43.68:8100", "http://localhost:8100", "http://localhost"));
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 

@@ -1,5 +1,6 @@
 package com.baylogic.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,6 +61,7 @@ public class ProvidersController {
 	@GetMapping("/prov/doctors")
 	public View getDoctors(Model model) {
 		List<Doctors> doctors = providersService.getDoctors();
+		
 		model.addAttribute("doctors", doctors);
         return new MappingJackson2JsonView();
 	}
