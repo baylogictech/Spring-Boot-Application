@@ -4,5 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.baylogic.model.UserAccountDetail;
 
-public interface UserAccountRepository extends JpaRepository<UserAccountDetail, Integer> {
+public interface UserAccountDetailRepository extends JpaRepository<UserAccountDetail, Integer> {
+	UserAccountDetail findByUserId(Long userId);
 }

@@ -60,14 +60,14 @@ public class ProvidersServiceImpl implements ProvidersService {
 		List<Doctors> doctorsList = doctorsRepo.findAll();		
 		int index = 0;
 		for(Doctors doctor : doctorsList) {
-			List<DocSpecializations> docSpecializations = docSpecRepo.findByUserId(doctor.getUserLoginId());			
+			List<DocSpecializations> docSpecializations = commonDAO.getDoctorSpecializations(doctor.getUserLoginId());			
 			for(DocSpecializations docSpe : docSpecializations) {
-				if(docSpe.getSpecializationType().equalsIgnoreCase(WebKeys.SPECIALIZATION_TYPE)) {
+				//if(docSpe.getSpecializationType().equalsIgnoreCase(WebKeys.SPECIALIZATION_TYPE)) {
 					Specialization specialization = specializationRepo.findBySpecializationId(docSpe.getSpecializationTypeId());
 					if(specialization != null) {	
 						doctor.setSpecializationType(specialization.getSpecializationName());
 					}
-				}
+				//}
 			}
 			doctorsList.set(index,doctor);
 			index++;

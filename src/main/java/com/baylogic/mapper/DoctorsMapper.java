@@ -25,7 +25,7 @@ public class DoctorsMapper implements RowMapper<Doctors>{
 		doctor.setState(rs.getString("state"));
 		doctor.setCity(rs.getString("city"));
 		doctor.setGender(rs.getString("gender"));
-		doctor.setUserLoginId(rs.getInt("user_login_id"));
+		doctor.setUserLoginId(rs.getLong("user_login_id"));
         return doctor;
     }
 	

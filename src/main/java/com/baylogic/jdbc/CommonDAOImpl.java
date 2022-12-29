@@ -1,6 +1,8 @@
 package com.baylogic.jdbc;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,11 @@ public class CommonDAOImpl implements CommonDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	public CommonDAOImpl(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 	
 	@Override
 	public List<Doctors> getDoctorsBySearch(String searchType,  PGArrayGeneric searchTypeIds) {
@@ -49,9 +56,9 @@ public class CommonDAOImpl implements CommonDAO {
 	}
 
 	@Override
-	public List<DocSpecializations> getDoctorSpecializations(Integer userLoginId) {
-		List<DocSpecializations> docSpecializations = null;
-		docSpecializations = this.jdbcTemplate.query("select * from doc_specializations where userId=? and specialization_type=?" , new DocSpecializationsMapper(), userLoginId, WebKeys.SPECIALIZATION_TYPE );
+	public List<DocSpecializations> getDoctorSpecializations(Long userLoginId) {
+		List<DocSpecializations> docSpecializations = Collections.emptyList();
+		docSpecializations = this.jdbcTemplate.query("select * from doc_specializations where user_id=? and specialization_type=?" , new DocSpecializationsMapper(), userLoginId, WebKeys.SPECIALIZATION_TYPE );
 		return docSpecializations;
 	}
 		

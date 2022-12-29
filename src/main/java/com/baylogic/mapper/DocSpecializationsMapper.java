@@ -15,6 +15,8 @@ public class DocSpecializationsMapper implements RowMapper<DocSpecializations>{
     public DocSpecializations mapRow(ResultSet rs, int rowNum) throws SQLException {
 		DocSpecializations docSpecializations = new DocSpecializations();
 		docSpecializations.setUserId(rs.getInt("user_id"));
+		docSpecializations.setSpecializationType(rs.getString("specialization_type"));
+		docSpecializations.setSpecializationTypeId(rs.getInt("specialization_type_id"));
         return docSpecializations;
     }
 	

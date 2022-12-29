@@ -1,12 +1,8 @@
 package com.baylogic.repositories;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.baylogic.model.DocSpecializations;
 
 public interface DocSpecializationsRepository extends JpaRepository<DocSpecializations, Integer> {
-	List<DocSpecializations> findByUserId(Integer userId);	
 }

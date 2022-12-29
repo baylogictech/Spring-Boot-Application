@@ -19,7 +19,7 @@ public class Doctors implements Serializable {
 	private String lastName;
 	private String professionalStatement;
 	private Date practicingFrom;
-	private Integer userLoginId;
+	private Long userLoginId;
 	private Integer age;
 	private String gender;
 	private String state;
@@ -82,10 +82,10 @@ public class Doctors implements Serializable {
 	public void setPracticingFrom(Date practicingFrom) {
 		this.practicingFrom = practicingFrom;
 	}
-	public Integer getUserLoginId() {
+	public Long getUserLoginId() {
 		return userLoginId;
 	}
-	public void setUserLoginId(Integer userLoginId) {
+	public void setUserLoginId(Long userLoginId) {
 		this.userLoginId = userLoginId;
 	}
 	public Integer getAge() {

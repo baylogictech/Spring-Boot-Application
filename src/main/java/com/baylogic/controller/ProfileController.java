@@ -2,8 +2,10 @@ package com.baylogic.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -38,6 +40,20 @@ public class ProfileController {
 			e.printStackTrace();
 		}
 		model.addAttribute("status", "Profile updated successfully.");
+		return new MappingJackson2JsonView();
+	}
+	
+	@GetMapping("/getProfile")
+	public View getProfileDetails(@RequestParam Long userId, Model model) {
+		UserAccountDetail userAccountDetail = profileService.getProfileDetails(userId);
+		model.addAttribute("userAccDet", userAccountDetail);
+		return new MappingJackson2JsonView();
+	}
+	
+	@GetMapping("/getDoctorProfile")
+	public View getDoctorProfileDetails(@RequestParam Long userId, Model model) {
+		Doctors doctorProfile = profileService.getDoctorProfile(userId);
+		model.addAttribute("doctorProfile", doctorProfile);
 		return new MappingJackson2JsonView();
 	}
 }

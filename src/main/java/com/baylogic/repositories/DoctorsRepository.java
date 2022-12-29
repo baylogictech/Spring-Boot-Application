@@ -6,5 +6,5 @@ import com.baylogic.model.Doctors;
 
 public interface DoctorsRepository extends JpaRepository<Doctors, Integer> {
 	
-
+	Doctors findByUserLoginId(Long userLoginId);
 }
