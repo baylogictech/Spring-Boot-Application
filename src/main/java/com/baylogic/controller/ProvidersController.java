@@ -60,22 +60,8 @@ public class ProvidersController {
 	
 	@GetMapping("/prov/doctors")
 	public View getDoctors(Model model) {
-		List<Doctors> doctors = providersService.getDoctors();
-		
+		List<Doctors> doctors = providersService.getDoctors();		
 		model.addAttribute("doctors", doctors);
-        return new MappingJackson2JsonView();
-	}
-	
-	@GetMapping("/prov/searchDoctors")
-	public View searchDoctors(@RequestParam String searchType, @RequestParam Integer searchTypeId, Model model) {
-		List<Doctors> doctorsList = providersService.searchDoctors(searchType, searchTypeId);
-		model.addAttribute("doctorsList", doctorsList);
-        return new MappingJackson2JsonView();
-	}
-	@GetMapping("/prov/searchDoctors2")
-	public View searchDoctors2(@RequestParam String searchType, @RequestParam List<Long> searchTypeIds, Model model) {
-		List<Doctors> doctorsList = providersService.searchDoctors(searchType, searchTypeIds);
-		model.addAttribute("doctorsList", doctorsList);
         return new MappingJackson2JsonView();
 	}
 	
@@ -85,5 +71,19 @@ public class ProvidersController {
 		model.addAttribute("doctorsList", doctorsList);
         return new MappingJackson2JsonView();
 	}
+	
+	@GetMapping("/prov/getDoctorsByIds")
+	public View getDoctorsByIds(@RequestParam String searchType, @RequestParam Long[] searchTypeIds, Model model) {
+		List<Doctors> doctorsList = providersService.getDoctors(searchType, searchTypeIds);
+		model.addAttribute("doctorsList", doctorsList);
+        return new MappingJackson2JsonView();
+	}
+	
+	/*@GetMapping("/prov/getDoctors")
+	public View getDoctors(@RequestParam String searchType, @RequestParam Long searchTypeId, Model model) {
+		List<Doctors> doctorsList = providersService.getDoctors(searchType, searchTypeId);
+		model.addAttribute("doctorsList", doctorsList);
+        return new MappingJackson2JsonView();
+	}*/
 }
 

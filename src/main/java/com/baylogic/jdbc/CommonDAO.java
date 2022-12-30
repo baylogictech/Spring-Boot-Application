@@ -7,9 +7,9 @@ import com.baylogic.model.DocSpecializations;
 import com.baylogic.model.Doctors;
 
 public interface CommonDAO {
-	public List<Doctors> getDoctorsBySearch(String searchType,  PGArrayGeneric searchTypeIds);
-	public List<Doctors> getDoctorsBySearch(String searchType,  Integer searchTypeId);
-	public List<Doctors> getDoctorsBySearch2(String searchType,  Long searchTypeId);
+	public List<Doctors> getDoctors(String searchType,  Long[] searchTypeIds);
+	public List<Doctors> getDoctors(String searchType,  Long searchTypeId);
+	//public List<Doctors> getDoctorsBySearch2(String searchType,  Long searchTypeId);
 	public List<DocSpecializations> getDoctorSpecializations(Long userLoginId);
 
 }

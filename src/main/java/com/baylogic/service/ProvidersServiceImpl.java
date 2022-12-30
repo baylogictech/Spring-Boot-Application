@@ -86,22 +86,20 @@ public class ProvidersServiceImpl implements ProvidersService {
 	}
 
 	@Override
-	public List<Doctors> searchDoctors(String searchType, List<Long> searchTypeIds) {
-		PGArrayGeneric st = new PGArrayGeneric();
-		st.setArray(Types.BIGINT, searchTypeIds.toArray());
-		return commonDAO.getDoctorsBySearch(searchType, st);
+	public List<Doctors> getDoctors(String searchType, Long[] searchTypeIds) {
+		return commonDAO.getDoctors(searchType, searchTypeIds);
 	}
 
 	@Override
 	public List<Doctors> getDoctors(String searchType, Long searchTypeId) {
-		return commonDAO.getDoctorsBySearch2(searchType, searchTypeId);
+		return commonDAO.getDoctors(searchType, searchTypeId);
 	}
 
-	@Override
-	public List<Doctors> searchDoctors(String searchType, Integer searchTypeId) {
+	/*@Override
+	public List<Doctors> searchDoctors(String searchType, Long searchTypeId) {
 		// TODO Auto-generated method stub
 		return commonDAO.getDoctorsBySearch(searchType, searchTypeId);
-	}
+	}*/
 
 }
 
