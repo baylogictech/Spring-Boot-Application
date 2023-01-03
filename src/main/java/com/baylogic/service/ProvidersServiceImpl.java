@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.baylogic.db.PGArrayGeneric;
@@ -16,6 +17,7 @@ import com.baylogic.model.Symptoms;
 import com.baylogic.repositories.DiagnosisRepository;
 import com.baylogic.repositories.DocSpecializationsRepository;
 import com.baylogic.repositories.DoctorsRepository;
+import com.baylogic.repositories.DoctorsRepositoryCustom;
 import com.baylogic.repositories.SpecializationRepository;
 import com.baylogic.repositories.SymptomsRepository;
 import com.baylogic.util.WebKeys;
@@ -32,6 +34,7 @@ public class ProvidersServiceImpl implements ProvidersService {
 	private DocSpecializationsRepository docSpecRepo;
 	@Autowired
 	private DoctorsRepository doctorsRepo;
+	
 	@Autowired
 	private CommonDAO commonDAO;
 
@@ -92,7 +95,8 @@ public class ProvidersServiceImpl implements ProvidersService {
 
 	@Override
 	public List<Doctors> getDoctors(String searchType, Long searchTypeId) {
-		return commonDAO.getDoctors(searchType, searchTypeId);
+		return doctorsRepo.getDoctorList(searchType, searchTypeId);
+		//return doctorsRepo.getDoctors();
 	}
 
 	/*@Override

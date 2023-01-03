@@ -28,8 +28,8 @@ public class CommonDAOImpl implements CommonDAO {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	/*@Override
-	public List<Doctors> getDoctors(String searchType,  PGArrayGeneric searchTypeIds) {
+	@Override
+	public List<Doctors> getDoctors(String searchType,  Long[] searchTypeIds) {
 		List<Doctors> doctors = null;		
 		doctors = jdbcTemplate.query("SELECT * from doc_list_by_search(?,?)", new DoctorsMapper(), new Object[] {searchType, searchTypeIds}); 
 		return doctors;
@@ -41,9 +41,9 @@ public class CommonDAOImpl implements CommonDAO {
 		doctors = jdbcTemplate.query("SELECT * from doc_list_by_search2(?,?)", new DoctorsMapper(), searchType, searchTypeId);  //"+searchType+","+searchTypeId+"
 		doctors.forEach(doctor -> System.out.println("doctor id"+doctor.getDoctorId()));
 		return doctors;
-	}*/
+	}
 	
-	@Override
+	/*@Override
 	public List<Doctors> getDoctors(String searchType,  Long[] searchTypeIds) {
 		List<Doctors> doctors = null;		
 		String input = Arrays.toString(searchTypeIds);
@@ -69,7 +69,7 @@ public class CommonDAOImpl implements CommonDAO {
 	    	    + "AND specialization_type_id = "+searchTypeId+"",
 	    	    new DoctorsMapper());
 	    return doctors;
-	}
+	}*/
 
 	@Override
 	public List<DocSpecializations> getDoctorSpecializations(Long userLoginId) {
