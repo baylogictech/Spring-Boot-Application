@@ -1,13 +1,16 @@
 package com.baylogic.service;
 
-import java.sql.Types;
+import java.sql.Array;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.baylogic.db.PGArrayGeneric;
 import com.baylogic.jdbc.CommonDAO;
 import com.baylogic.model.Diagnosis;
 import com.baylogic.model.DocSpecializations;
@@ -17,12 +20,10 @@ import com.baylogic.model.Symptoms;
 import com.baylogic.repositories.DiagnosisRepository;
 import com.baylogic.repositories.DocSpecializationsRepository;
 import com.baylogic.repositories.DoctorsRepository;
-import com.baylogic.repositories.DoctorsRepositoryCustom;
 import com.baylogic.repositories.SpecializationRepository;
 import com.baylogic.repositories.SymptomsRepository;
-import com.baylogic.util.WebKeys;
 
-@Service
+@Service("productService")
 public class ProvidersServiceImpl implements ProvidersService {
 	@Autowired
 	private SymptomsRepository symptomsRepo;
@@ -37,6 +38,11 @@ public class ProvidersServiceImpl implements ProvidersService {
 	
 	@Autowired
 	private CommonDAO commonDAO;
+	
+
+	   @Autowired
+	   @PersistenceContext
+	   private EntityManager em;
 
 	@Override
 	public List<Symptoms> getSymptoms() {
@@ -89,21 +95,20 @@ public class ProvidersServiceImpl implements ProvidersService {
 	}
 
 	@Override
-	public List<Doctors> getDoctors(String searchType, Long[] searchTypeIds) {
-		return commonDAO.getDoctors(searchType, searchTypeIds);
+	public List<Doctors> getDoctors(String searchType, Integer[] searchTypeIds) {
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("getDoctors");
+	    spq.registerStoredProcedureParameter("PARAM1", String.class, ParameterMode.IN);
+	    spq.registerStoredProcedureParameter("PARAM2", Integer.class, ParameterMode.IN);
+	    return spq.setParameter("PARAM1", searchType).setParameter("PARAM2", searchTypeIds).getResultList();
 	}
 
 	@Override
-	public List<Doctors> getDoctors(String searchType, Long searchTypeId) {
-		return doctorsRepo.getDoctorList(searchType, searchTypeId);
-		//return doctorsRepo.getDoctors();
+	public List<Doctors> getDoctors(String searchType, Integer searchTypeId) {
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("getDoctors2");
+	    spq.registerStoredProcedureParameter("PARAM1", String.class, ParameterMode.IN);
+	    spq.registerStoredProcedureParameter("PARAM2", int.class, ParameterMode.IN);
+	    return spq.setParameter("PARAM1", searchType).setParameter("PARAM2", searchTypeId.intValue()).getResultList();
 	}
-
-	/*@Override
-	public List<Doctors> searchDoctors(String searchType, Long searchTypeId) {
-		// TODO Auto-generated method stub
-		return commonDAO.getDoctorsBySearch(searchType, searchTypeId);
-	}*/
 
 }
 

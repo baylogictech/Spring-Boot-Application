@@ -15,8 +15,8 @@ public interface ProvidersService {
 	public List<Diagnosis> getDiagnosis();
 	public boolean saveDocSpecialization(DocSpecializations docSpecializations);
 	public List<Doctors> getDoctors();
-	public List<Doctors> getDoctors(String searchType,  Long[] searchTypeIds); 
-	public List<Doctors> getDoctors(String searchType, Long searchTypeId); 
+	public List<Doctors> getDoctors(String searchType,  Integer[] searchTypeIds); 
+	public List<Doctors> getDoctors(String searchType, Integer searchTypeId); 
 	//public List<Doctors> getDoctors(String searchType, Long searchTypeId); 
 
 }

@@ -9,24 +9,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.StoredProcedureParameter;
 
 
 @Table(name="doctors")
 @Entity
 @NamedStoredProcedureQueries({
-    @NamedStoredProcedureQuery(name = "getDoctors",
+    @NamedStoredProcedureQuery(name = "getDoctors2",
 	    procedureName = "doc_list_by_search2", 
-		parameters={
-	            @StoredProcedureParameter(name="search_type", type=String.class, mode=ParameterMode.IN),
-	            @StoredProcedureParameter(name="search_type_id", type=Long.class, mode=ParameterMode.IN)
-	        },
+	    resultClasses = Doctors.class),
+    @NamedStoredProcedureQuery(name = "getDoctors4",
+	    procedureName = "doc_list_by_search4", 
+	    resultClasses = Doctors.class),
+    @NamedStoredProcedureQuery(name = "getDoctors3",
+	    procedureName = "doc_list_by_search3", 
+	    resultClasses = Doctors.class),
+    @NamedStoredProcedureQuery(name = "getDoctors",
+    procedureName = "doc_list_by_search", 
     resultClasses = Doctors.class)
 })
-
 public class Doctors implements Serializable {
 	
 	private Integer doctorId;
