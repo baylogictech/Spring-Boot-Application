@@ -9,7 +9,7 @@
  * 
  * import com.baylogic.model.Doctors;
  * 
- * public class DoctorsRepositoryImpl implements DoctorsRepositoryCustom{
+ * public class DoctorsRepositoryImpl implements DoctorsRepositoryCustom {
  * 
  * @PersistenceContext private EntityManager em;
  * 
@@ -19,7 +19,6 @@
  * findByProcedure.setParameter("search_type", category);
  * findByProcedure.setParameter("search_type_id", searchItem);
  * findByProcedure.execute(); return findByProcedure.getResultList(); }
- * 
  * 
  * }
  */

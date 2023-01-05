@@ -1,6 +1,7 @@
 package com.baylogic.service;
 
 import java.sql.Array;
+import java.sql.Types;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baylogic.db.PGArrayGeneric;
 import com.baylogic.jdbc.CommonDAO;
 import com.baylogic.model.Diagnosis;
 import com.baylogic.model.DocSpecializations;
@@ -95,18 +97,21 @@ public class ProvidersServiceImpl implements ProvidersService {
 	}
 
 	@Override
-	public List<Doctors> getDoctors(String searchType, Integer[] searchTypeIds) {
+	public List<Doctors> getDoctors(String searchType, Long[] searchTypeIds) {
+		PGArrayGeneric st = new PGArrayGeneric();	
+	  	st.setArray(Types.BIGINT, searchTypeIds);
+	  	long[] test = {1,2};
 		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("getDoctors");
 	    spq.registerStoredProcedureParameter("PARAM1", String.class, ParameterMode.IN);
-	    spq.registerStoredProcedureParameter("PARAM2", Integer.class, ParameterMode.IN);
-	    return spq.setParameter("PARAM1", searchType).setParameter("PARAM2", searchTypeIds).getResultList();
+	    spq.registerStoredProcedureParameter("PARAM2", long[].class, ParameterMode.IN);
+	    return spq.setParameter("PARAM1", searchType).setParameter("PARAM2", st).getResultList();
 	}
 
 	@Override
 	public List<Doctors> getDoctors(String searchType, Integer searchTypeId) {
 		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("getDoctors2");
 	    spq.registerStoredProcedureParameter("PARAM1", String.class, ParameterMode.IN);
-	    spq.registerStoredProcedureParameter("PARAM2", int.class, ParameterMode.IN);
+	    spq.registerStoredProcedureParameter("PARAM2", Integer.class, ParameterMode.IN);
 	    return spq.setParameter("PARAM1", searchType).setParameter("PARAM2", searchTypeId.intValue()).getResultList();
 	}
 

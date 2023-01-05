@@ -71,7 +71,7 @@ public class ProvidersController {
 	}
 	
 	@GetMapping("/prov/getDoctorsByIds")
-	public View getDoctorsByIds(@RequestParam String searchType, @RequestParam Integer[] searchTypeIds, Model model) {
+	public View getDoctorsByIds(@RequestParam String searchType, @RequestParam Long[] searchTypeIds, Model model) {
 		List<Doctors> doctorsList = providersService.getDoctors(searchType, searchTypeIds);
 		model.addAttribute("doctorsList", doctorsList);
         return new MappingJackson2JsonView();
